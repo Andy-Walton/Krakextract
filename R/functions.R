@@ -5,11 +5,11 @@
 #' License: MIT + file LICENSE
 #'
 #' @param file This is the file path to your Kraken report file
-#' @param filetype This is the type of file, only "Kraken" works at this point
 #' @param sci_names This is a vector of the form c("Lactobacillaceae", "Streptococcaceae") ONLY FAMILY NAMES WORK
 #' @param rank_method Sort the kraken hits by percentage or number of reads args = "reads" or "percent"
 #' @param rank_no The top x number of species (default is 5)
 #' @param min_reads The minimum number of reads for a species to be included (default is 0)
+#' @param out_type Specifies what you want to output args: IDs or names
 #' @param outdir The filepath you want to save your text files to
 #'
 #' @return Text files with NCBI IDs for each species of interest above thresholds in your kraken output
@@ -20,20 +20,20 @@
 #' path_out = "man/Example_Data/"
 #'
 #' Parse_report("man/Example_Data/Example.kreport",
-#' filetype="Kraken",
 #' sci_names=families,
 #' rank_method="reads",
 #' rank_no=10,
+#' out_type="IDs",
 #' outdir=path_out)}
 #'
 #' @importFrom utils read.table
 #' @export
-Parse_report <- function(file, filetype, sci_names, rank_method, rank_no = 5, min_reads = 0, outdir){
+Parse_report <- function(file, sci_names, rank_method = "reads", rank_no = 5, min_reads = 0, out_type = "names", outdir){
   df <- read.table(file, sep = '\t', header = FALSE)
 
   print("report loaded")
 
-  if (filetype == "Kraken"){
+
     names(df)[1] <- "percent"
     names(df)[2] <- "no_reads_clade"
     names(df)[3] <- "no_reads_taxon"
@@ -102,8 +102,20 @@ Parse_report <- function(file, filetype, sci_names, rank_method, rank_no = 5, mi
 
     Interest_IDs_Species$sci_name <- gsub("^\\s+", "", Interest_IDs_Species$sci_name)
 
-    writeLines(as.character(Interest_IDs_Species$sci_name), file.path(outdir, paste0(sci_names[s], ".txt")))
-  }
+    if (out_type == "names"){
+
+      writeLines(as.character(Interest_IDs_Species$sci_name), file.path(outdir, paste0(sci_names[s], ".txt")))
+
+      print("File with names produced")
+
+    }
+
+    if (out_type == "IDs") {
+      writeLines(as.character(Interest_IDs_Species$NCBI_id), file.path(outdir, paste0(sci_names[s], ".txt")))
+
+      print("File with IDs produced")
+    }
+
 
   }
 
