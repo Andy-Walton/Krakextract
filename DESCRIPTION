@@ -4,7 +4,7 @@ Title: Tool to extract NCBI taxon IDs from kraken reports
 Version: 0.1.0
 Author: Andy Walton
 Maintainer: Andy Walton <andrew.walton@ucl.ac.uk>
-Description: Tool to extract NCBI taxon IDs from kraken reports
+Description: This package extracts species of interest from Kraken reports allowing users to download and align their reference genomes from NCBI
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
