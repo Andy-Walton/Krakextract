@@ -2,7 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{Parse_report}
 \alias{Parse_report}
-\title{Krakextract}
+\title{Parse_report}
 \usage{
 Parse_report(
   file,
@@ -33,9 +33,7 @@ Parse_report(
 Text files with NCBI IDs for each species of interest above thresholds in your kraken output
 }
 \description{
-This package extracts species of interest from Kraken
-reports allowing users to download and align
-their reference genomes from NCBI
+Extracts species of interest from Kraken reports
 
 License: MIT + file LICENSE
 }

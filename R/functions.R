@@ -1,8 +1,6 @@
-#' @title Krakextract
+#' @title Parse_report
 #'
-#' @description This package extracts species of interest from Kraken
-#' reports allowing users to download and align
-#' their reference genomes from NCBI
+#' @description Extracts species of interest from Kraken reports
 #'
 #' License: MIT + file LICENSE
 #'
@@ -86,14 +84,14 @@ Parse_report <- function(file, filetype, sci_names, rank_method, rank_no = 5, mi
 
 
     if (rank_method == "percent" || rank_method == "Percent"){
-      Interest_IDs_Species$rank <- rank(Interest_IDs_Species$percent, ties.method = "first")
+      Interest_IDs_Species$rank <- rank(-Interest_IDs_Species$percent, ties.method = "first")
       Interest_IDs_Species <- subset(Interest_IDs_Species, rank >= rank_no)
 
       print("Species ranked and subsetted")
     }
 
     else if (rank_method == "reads" || rank_method == "Reads"){
-      Interest_IDs_Species$rank <- rank(Interest_IDs_Species$no_reads_taxon, ties.method = "first")
+      Interest_IDs_Species$rank <- rank(-Interest_IDs_Species$no_reads_taxon, ties.method = "first")
       Interest_IDs_Species <- subset(Interest_IDs_Species, rank <= rank_no)
 
       print("Species ranked and subsetted")
@@ -102,11 +100,12 @@ Parse_report <- function(file, filetype, sci_names, rank_method, rank_no = 5, mi
 
     print(paste0(nrow(Interest_IDs_Species), " species of ", sci_names[s]," remain"))
 
-    writeLines(as.character(Interest_IDs_Species$NCBI_id), file.path(outdir, paste0(sci_names[s], ".txt")))
+    Interest_IDs_Species$sci_name <- gsub("^\\s+", "", Interest_IDs_Species$sci_name)
+
+    writeLines(as.character(Interest_IDs_Species$sci_name), file.path(outdir, paste0(sci_names[s], ".txt")))
   }
 
   }
 
 
 }
-
