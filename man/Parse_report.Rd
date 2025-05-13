@@ -6,18 +6,16 @@
 \usage{
 Parse_report(
   file,
-  filetype,
   sci_names,
-  rank_method,
+  rank_method = "reads",
   rank_no = 5,
   min_reads = 0,
+  out_type = "names",
   outdir
 )
 }
 \arguments{
 \item{file}{This is the file path to your Kraken report file}
-
-\item{filetype}{This is the type of file, only "Kraken" works at this point}
 
 \item{sci_names}{This is a vector of the form c("Lactobacillaceae", "Streptococcaceae") ONLY FAMILY NAMES WORK}
 
@@ -26,6 +24,8 @@ Parse_report(
 \item{rank_no}{The top x number of species (default is 5)}
 
 \item{min_reads}{The minimum number of reads for a species to be included (default is 0)}
+
+\item{out_type}{Specifies what you want to output args: IDs or names}
 
 \item{outdir}{The filepath you want to save your text files to}
 }
@@ -43,10 +43,10 @@ families = c("Lactobacillaceae", "Aerococcaceae")
 path_out = "man/Example_Data/"
 
 Parse_report("man/Example_Data/Example.kreport",
-filetype="Kraken",
 sci_names=families,
 rank_method="reads",
 rank_no=10,
+out_type="IDs",
 outdir=path_out)}
 
 }
