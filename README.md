@@ -2,6 +2,14 @@
 
 R package that extracts species of interest from Kraken reports and downloads good quality reference genomes for them from the NCBI refseq database.
 
+<h2 align="center">Installation</h2>
+Install the package using:
+```
+install.packages("devtools")
+devtools::install()
+devtools::install_github("Andy-Walton/Krakextract")
+```
+
 <h2 align="center">Instructions</h2>
 The package contains 3 functions. They should be run in order:
 
