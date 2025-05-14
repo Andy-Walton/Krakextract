@@ -1,6 +1,6 @@
 <h1 align="center">Krakextract</h1>
 
-R package that extracts species of interest from Kraken reports and downloads good quality reference genomes for them from the NCBI refseq database.
+A little R package that extracts species of interest from Kraken reports and downloads good quality reference genomes for them from the NCBI refseq database.
 
 <h2 align="center">Installation</h2>
 Install the package using:
