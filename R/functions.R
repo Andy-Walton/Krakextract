@@ -210,7 +210,7 @@ get_metadata <- function(kingdom, outdir){
 #' @importFrom utils read.delim
 #' @importFrom utils download.file
 #' @export
-Download_Refs <- function(ID_file, assembly_location, outdir){
+download_refs <- function(ID_file, assembly_location, outdir){
 
   options(timeout = 100000)
 
