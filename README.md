@@ -4,6 +4,7 @@ R package that extracts species of interest from Kraken reports and downloads go
 
 <h2 align="center">Installation</h2>
 Install the package using:
+
 ```
 install.packages("devtools")
 devtools::install()
