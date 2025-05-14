@@ -41,7 +41,7 @@ parse_report <- function(file, sci_names, rank_method = "reads", rank_no = 5, mi
     names(df)[5] <- "NCBI_id"
     names(df)[6] <- "sci_name"
 
-  for (s in 1:seq_along(sci_names)){
+  for (s in seq_along(sci_names)){
 
     Family_name <- paste0("              ", sci_names[s])
 
