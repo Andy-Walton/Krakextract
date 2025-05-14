@@ -47,6 +47,8 @@ parse_report <- function(file, sci_names, rank_method = "reads", rank_no = 5, mi
 
     start_taxa <- which(sci_names[s] == df$sci_name)
 
+    print(start_taxa)
+
     df_trim<- df[-(1:(start_taxa)),]
 
     print(4)
@@ -250,26 +252,49 @@ download_refs <- function(ID_file, assembly_location, outdir){
 
     chk <- subset(chk, organism_name == df$ID[i])
 
-    print(paste("Found", nrow(chk), df$ID[i], "genomes", sep = " "))
-
-    chk <- subset(chk, assembly_level == "Complete Genome")
-    chk <- subset(chk, genome_rep == "Full")
-
-    print(paste(nrow(chk),"are complete and full", sep = " "))
-
     chk$seq_rel_date <- gsub("-", "", chk$seq_rel_date)
 
     chk$seq_rel_date <- as.numeric(chk$seq_rel_date)
 
-    sequence <- chk[which.max(chk$seq_rel_date), ]
+    print(paste("Found", nrow(chk), df$ID[i], "genomes", sep = " "))
 
-    print(paste("Downloading most recent from", sequence$seq_rel_date, sep = " "))
+    ref_gens_no <- length(which(chk$refseq_category == "reference genome"))
 
-    file_prefix <- gsub(" ", "_", df$ID[i])
+    if (ref_gens_no > 0){
 
-    genome_destination = paste0(outdir, "/",  file_prefix, "_genomic_refseq.fna.gz")
+      chk <- subset(chk, refseq_category == "reference genome")
 
-    download.file(url = sequence$ftp_path, destfile = genome_destination)
+      sequence <- chk[which.max(chk$seq_rel_date), ]
+
+      print(paste("Downloading latest reference genome dated", sequence$seq_rel_date, sep = " "))
+
+      file_prefix <- gsub(" ", "_", df$ID[i])
+
+      genome_destination = paste0(outdir, "/",  file_prefix, "_genomic_refseq.fna.gz")
+
+      download.file(url = sequence$ftp_path, destfile = genome_destination)
+
+
+    } else if (nrow(chk) > 0) {
+
+      print(paste("No reference genome in NCBI RefSeq for", df$ID[i], sep = " "))
+
+      chk <- subset(chk, assembly_level == "Complete Genome")
+      chk <- subset(chk, genome_rep == "Full")
+
+      print(paste(nrow(chk),"are complete and full", sep = " "))
+
+      sequence <- chk[which.max(chk$seq_rel_date), ]
+
+      print(paste("Downloading most recent from", sequence$seq_rel_date, sep = " "))
+
+      file_prefix <- gsub(" ", "_", df$ID[i])
+
+      genome_destination = paste0(outdir, "/",  file_prefix, "_genomic_refseq.fna.gz")
+
+      download.file(url = sequence$ftp_path, destfile = genome_destination)
+
+    } else (print(paste("No reference, or complete & full genomes available for ", df$ID[i], sep = " ")))
   }
 
 }
