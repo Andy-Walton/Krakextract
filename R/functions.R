@@ -1,4 +1,4 @@
-#' @title Parse_report
+#' @title parse_report
 #'
 #' @description Extracts species of interest from Kraken reports.
 #'
@@ -19,7 +19,7 @@
 #' families = c("Lactobacillaceae", "Aerococcaceae")
 #' path_out = "man/Example_Data/"
 #'
-#' Parse_report("man/Example_Data/Example.kreport",
+#' parse_report("man/Example_Data/Example.kreport",
 #' sci_names=families,
 #' rank_method="reads",
 #' rank_no=10,
@@ -28,7 +28,7 @@
 #'
 #' @importFrom utils read.table
 #' @export
-Parse_report <- function(file, sci_names, rank_method = "reads", rank_no = 5, min_reads = 0, out_type = "names", outdir){
+parse_report <- function(file, sci_names, rank_method = "reads", rank_no = 5, min_reads = 0, out_type = "names", outdir){
   df <- read.table(file, sep = '\t', header = FALSE)
 
   print("report loaded")
@@ -154,6 +154,8 @@ Parse_report <- function(file, sci_names, rank_method = "reads", rank_no = 5, mi
 #' @importFrom utils download.file
 #' @export
 get_metadata <- function(kingdom, outdir){
+
+  options(timeout = 100000)
 
   for (k in 1:length(kingdom)){
 
