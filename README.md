@@ -18,7 +18,7 @@ The package contains 3 functions. They should be run in order:
 NB: this only needs to be run once for each 'kingdom' when package is first installed. Specify the kingdom (e.g. bacteria or fungi) that you are interested in and it will donwload the NCBI RefSeq metadata file for it.
 
 <h3 align="left">2) parse_report():</h3>
-This reads .report files produced by kraken. You specify families of interest (e.g. Plasmodiidae) and it will produce a .txt file with the scientific names of the most abundant species from that family in your sample.
+This reads .report files produced by kraken. You specify families of interest (e.g. Plasmodiidae) and it will produce a .txt file with the scientific names of the most abundant species from that family in your sample. Note you can use other taxonomic levels over 'family' but this is experimental.
 
 <h3 align="left">3) download_refs():</h3>
 This takes the .txt files produced above and downloads the reference genome (or if not available, most recent complete genome) for each species from NCBI RefSeq.
