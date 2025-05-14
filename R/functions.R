@@ -43,11 +43,13 @@ parse_report <- function(file, sci_names, rank_method = "reads", rank_no = 5, mi
 
   for (s in seq_along(sci_names)){
 
-    Family_name <- paste0("              ", sci_names[s])
+    df$sci_name <- gsub("^\\s+", "", df$sci_name)
 
-    start_taxa <- which(Family_name == df$sci_name)
+    start_taxa <- which(sci_names[s] == df$sci_name)
 
     df_trim<- df[-(1:(start_taxa)),]
+
+    print(4)
 
     Interest_IDs <- y <- data.frame(percent=numeric(),
                                     no_reads_clade=numeric(),
@@ -57,7 +59,7 @@ parse_report <- function(file, sci_names, rank_method = "reads", rank_no = 5, mi
                                     sci_name=character())
 
     # Define valid rank codes
-    valid_codes <- c("G", "G1", "G2", "S", "S1", "S2")
+    valid_codes <- c("F1", "F2", "G", "G1", "G2", "S", "S1", "S2")
 
     for (i in 1:nrow(df_trim)) {
       current_code <- df_trim$rank_code[i]
@@ -100,7 +102,7 @@ parse_report <- function(file, sci_names, rank_method = "reads", rank_no = 5, mi
 
     print(paste0(nrow(Interest_IDs_Species), " species of ", sci_names[s]," remain"))
 
-    Interest_IDs_Species$sci_name <- gsub("^\\s+", "", Interest_IDs_Species$sci_name)
+    #Interest_IDs_Species$sci_name <- gsub("^\\s+", "", Interest_IDs_Species$sci_name)
 
     if (out_type == "names"){
 
