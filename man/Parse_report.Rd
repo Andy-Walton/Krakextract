@@ -33,7 +33,7 @@ Parse_report(
 Text files with NCBI IDs for each species of interest above thresholds in your kraken output
 }
 \description{
-Extracts species of interest from Kraken reports
+Extracts species of interest from Kraken reports.
 
 License: MIT + file LICENSE
 }
